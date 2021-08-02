@@ -8,6 +8,8 @@ namespace PickMovie
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using PickMovie.Data;
+    using PickMovie.Infrastructure;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -18,7 +20,7 @@ namespace PickMovie
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddDbContext<ApplicationDbContext>(options => options
+                .AddDbContext<PickMovieDbContext>(options => options
                     .UseSqlServer(Configuration
                         .GetConnectionString("DefaultConnection")));
 
@@ -33,13 +35,16 @@ namespace PickMovie
                     options.Password.RequireUppercase = false;
 
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<PickMovieDbContext>();
 
             services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            app.PrepareDataBase();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -58,10 +63,10 @@ namespace PickMovie
                 .UseAuthentication()
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
-                {
+            {
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
-                });
+            });
         }
     }
 }
