@@ -8,7 +8,7 @@
         public int Id { get; init; }
 
         [Required]
-        [MaxLength(MovieNameMaxLength)]
+        [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
 
         [Required]
@@ -16,9 +16,12 @@
         public string Description { get; set; }
 
         [Required]
+        [MaxLength(DirectorNameMaxLength)]
         public string Director { get; set; }
 
         public string ImageUrl { get; set; }
+
+        //public int Year { get; set; }
 
         public int CategoryId { get; set; }
 

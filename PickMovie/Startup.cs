@@ -13,7 +13,7 @@ namespace PickMovie
     public class Startup
     {
         public Startup(IConfiguration configuration)
-            => Configuration = configuration;
+            => this.Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
@@ -21,7 +21,7 @@ namespace PickMovie
         {
             services
                 .AddDbContext<PickMovieDbContext>(options => options
-                    .UseSqlServer(Configuration
+                    .UseSqlServer(this.Configuration
                         .GetConnectionString("DefaultConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
