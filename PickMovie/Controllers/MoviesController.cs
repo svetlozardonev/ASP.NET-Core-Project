@@ -1,5 +1,6 @@
 ﻿namespace PickMovie.Controllers
 {
+    using System;
     using Microsoft.AspNetCore.Mvc;
     using PickMovie.Data;
     using PickMovie.Data.Models;
@@ -18,6 +19,39 @@
         {
             Categories = this.GetMovieCategories()
         });
+
+        public IActionResult All(string searchTerm)
+        {
+            var moviesQuery = this.data.Movies.AsQueryable();
+
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                moviesQuery = moviesQuery.Where(m =>
+                    m.Title.ToLower().Contains(searchTerm.ToLower()) ||
+                    m.Director.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            var movies = moviesQuery
+                .OrderByDescending(m => m.Id)
+                .Select(m => new MovieListingViewModel
+                {
+                    Id = m.Id,
+                    Title = m.Title,
+                    Director = m.Director,
+                    ImageUrl = m.ImageUrl,
+                    Year = m.Year,
+                    Category = m.Category.Name
+                })
+                .ToList();
+
+
+            return View(new AllMoviesQueryModel 
+            {
+                Movies = movies,
+                SearchTerm = searchTerm
+            });
+        }
 
         [HttpPost]
         public IActionResult Add(AddMovieFormModel movie)
@@ -41,13 +75,14 @@
                 Description = movie.Description,
                 Director = movie.Director,
                 ImageUrl = movie.ImageUrl,
+                Year = movie.Year,
                 CategoryId = movie.CategoryId
             };
 
             this.data.Movies.Add(currMovie);
             this.data.SaveChanges();
             
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(All));
         }
 
         private IEnumerable<MovieCategoryViewModel> GetMovieCategories()

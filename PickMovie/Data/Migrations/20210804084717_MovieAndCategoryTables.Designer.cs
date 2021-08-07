@@ -10,8 +10,8 @@ using PickMovie.Data;
 namespace PickMovie.Data.Migrations
 {
     [DbContext(typeof(PickMovieDbContext))]
-    [Migration("20210802101750_CategoryAndMovieTables")]
-    partial class CategoryAndMovieTables
+    [Migration("20210804084717_MovieAndCategoryTables")]
+    partial class MovieAndCategoryTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -254,7 +254,8 @@ namespace PickMovie.Data.Migrations
 
                     b.Property<string>("Director")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -263,6 +264,9 @@ namespace PickMovie.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -3,16 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Pick Your Movie Easily</title>
+    <title>@ViewData["Title"]Welcome - Pick Your Movie Easily</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 </head>
-<body style="background: url('https://veramedia.com/wp-content/themes/activate_theme/img/bg_demo.jpg') no-repeat; background-size: 100% ">
+<body style="background: url('https://veramedia.com/wp-content/themes/activate_theme/img/bg_demo.jpg') no-repeat; background-size: cover; background-attachment: fixed;">
+
+    
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand text-black" asp-area="" asp-controller="Home" asp-action="Index">PickYourMovie</a>
+                <a class="navbar-brand text-black" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img class="layout-logo" src="/css/pic1.png" alt="Logo"/>
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,14 +26,12 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-black" asp-area="" asp-controller="Movies" asp-action="Add">Add Movie</a>
-                        </li>
+                            <a class="nav-link text-black" asp-area="" asp-controller="Movies" asp-action="Add"><Font size="4">Add Movie</Font></a>
+                        </li>&nbsp;&nbsp;&nbsp;
                         <li class="nav-item">
-                            <a class="nav-link text-black" asp-area="" asp-controller="Home" asp-action="Index">Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-black" asp-area="" asp-controller="Home" asp-action="Index">Top Rated</a>
-                        </li>
+                            <a class="nav-link text-black" asp-area="" asp-controller="Movies" asp-action="All"><Font size="4">All Movies</Font></a>
+                        </li>&nbsp;&nbsp;&nbsp;
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -46,7 +50,7 @@
                 background-color: white;
             }
         </style>
-        <div class="container">
+        <div class="container" >
             &copy; @DateTime.UtcNow.Year - PickYourMovie
         </div>
     </footer>

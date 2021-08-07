@@ -1,0 +1,37 @@
+﻿@model AllMoviesQueryModel
+
+
+<form method="get">
+        <div class="form-group" style="color: orange" align="center">
+            <input class="search-field" asp-for="SearchTerm" type="text"  placeholder="Type to search..">
+            <a>
+                <i class="fa fa-search" style="font-size:25px;color:orange">
+                </i>
+            </a>
+    </div>
+    
+</form>
+        
+    <div class="row">
+        @foreach (var movie in Model.Movies)
+        {
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <img class="card-img-top" src="@movie.ImageUrl" alt="Card image cap">
+                    <div class="card-body">
+                        <h2 class="card-title">@movie.Title</h2>
+                        <h6>@movie.Category</h6>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Director - @movie.Director</li>
+                        <li class="list-group-item">Year - @movie.Year</li>
+                    </ul>
+                    <a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id" class="mb-2">View More</a>
+                </div>
+
+            </div>
+
+        }
+
+    </div>
+

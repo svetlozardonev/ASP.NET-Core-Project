@@ -23,8 +23,8 @@ namespace PickMovie.Models.Movies
         [Url]
         public string ImageUrl { get; init; }
 
-        //[Range(MovieYearMinValue, MovieYearMaxValue)]
-        //public int Year { get; set; }
+        [Range(MovieYearMinValue, MovieYearMaxValue, ErrorMessage = "The year must be in range {1} - {2}.")]
+        public int Year { get; init; }
 
         [Display(Name = "Category")]
         public int CategoryId { get; init; }
