@@ -1,6 +1,5 @@
 ﻿namespace PickMovie.Controllers
 {
-    using System;
     using Microsoft.AspNetCore.Mvc;
     using PickMovie.Data;
     using PickMovie.Data.Models;
@@ -20,20 +19,25 @@
             Categories = this.GetMovieCategories()
         });
 
-        public IActionResult All(string searchTerm)
+        public IActionResult All([FromQuery]AllMoviesQueryModel query)
         {
             var moviesQuery = this.data.Movies.AsQueryable();
 
+            if (!string.IsNullOrWhiteSpace(query.Title))
+            {
+                moviesQuery = moviesQuery.Where(m => m.Title == query.Title);
+            }
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
+            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
             {
                 moviesQuery = moviesQuery.Where(m =>
-                    m.Title.ToLower().Contains(searchTerm.ToLower()) ||
-                    m.Director.ToLower().Contains(searchTerm.ToLower()));
+                    m.Title.ToLower().Contains(query.SearchTerm.ToLower()) ||
+                    m.Director.ToLower().Contains(query.SearchTerm.ToLower()));
             }
 
             var movies = moviesQuery
-                .OrderByDescending(m => m.Id)
+                .Skip((query.CurrentPage - 1) * AllMoviesQueryModel.MoviesPerPage)
+                .Take(AllMoviesQueryModel.MoviesPerPage)
                 .Select(m => new MovieListingViewModel
                 {
                     Id = m.Id,
@@ -45,12 +49,7 @@
                 })
                 .ToList();
 
-
-            return View(new AllMoviesQueryModel 
-            {
-                Movies = movies,
-                SearchTerm = searchTerm
-            });
+            return View(query);
         }
 
         [HttpPost]
