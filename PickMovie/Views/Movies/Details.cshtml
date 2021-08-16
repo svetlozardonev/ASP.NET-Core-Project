@@ -1,0 +1,25 @@
+﻿@model MovieListingViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="card text-center">
+    <div class="card-header">
+        <h4>
+            @Model.Title
+        </h4>
+    </div>
+    <div class="card-body">
+        <p>Director - @Model.Director</p>
+        <p>
+            Category -  @Model.Category
+        </p>
+        <p>
+            Year - @Model.Year
+        </p>
+        <img class="mb-3" src="@Model.ImageUrl" height="500" alt="@Model.Title @Model.Year ">
+
+        <h5 class="card-title mb-4">@Model.Description</h5>
+        <a href="#" class="btn btn-basic">Comments</a>
+    </div>
+</div>

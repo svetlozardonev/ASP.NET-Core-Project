@@ -8,6 +8,7 @@ namespace PickMovie
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using TestProject.Data;
+    using TestProject.Data.Models;
     using TestProject.Infrastructure;
 
     public class Startup
@@ -27,7 +28,7 @@ namespace PickMovie
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services
-                .AddDefaultIdentity<IdentityUser>(options => 
+                .AddDefaultIdentity<User>(options => 
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;

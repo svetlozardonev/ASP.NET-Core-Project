@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using TestProject.Data.Models;
 
-    public class PickMovieDbContext : IdentityDbContext
+    public class PickMovieDbContext : IdentityDbContext<User>
     {
         public PickMovieDbContext(DbContextOptions<PickMovieDbContext> options)
             : base(options)

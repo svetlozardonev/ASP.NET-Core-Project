@@ -1,4 +1,8 @@
 ﻿@using TestProject
 @using TestProject.Models
+@using TestProject.Data.Models
 @using TestProject.Models.Movies
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> userManager
+@inject SignInManager<User> signInManager
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

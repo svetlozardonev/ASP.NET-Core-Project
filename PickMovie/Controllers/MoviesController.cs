@@ -1,9 +1,11 @@
 ﻿namespace TestProject.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using TestProject.Data;
     using TestProject.Data.Models;
     using TestProject.Infrastructure;
@@ -12,9 +14,14 @@
     public class MoviesController : Controller
     {
         private readonly PickMovieDbContext data;
+        private readonly UserManager<User> userManager;
 
-        public MoviesController(PickMovieDbContext data) 
-            => this.data = data;
+        public MoviesController(PickMovieDbContext data,
+            UserManager<User> userManager)
+        {
+            this.data = data;
+            this.userManager = userManager;
+        }
 
         public IActionResult All([FromQuery]AllMoviesQueryModel query)
         {
@@ -54,6 +61,25 @@
         {
             Categories = this.GetMovieCategories()
         });
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string movieId)
+        {
+            var movie = await this.data.Movies
+                .Include(m => m.Category)
+                .FirstOrDefaultAsync(m => m.Id == movieId);
+
+            return View(new MovieListingViewModel
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Description = movie.Description,
+                Director = movie.Director,
+                ImageUrl = movie.ImageUrl,
+                Year = movie.Year,
+                Category = movie.Category.Name,
+            });
+        }
 
         [HttpPost]
         public IActionResult Add(AddMovieFormModel movie)

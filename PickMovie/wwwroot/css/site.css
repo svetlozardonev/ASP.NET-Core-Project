@@ -78,8 +78,6 @@ body {
 .layout-logo {
     max-width: auto;
     max-height: 86px;
-    box-shadow: 4px 4px 4px #aaaaaa;
-    border-radius: 4%;
 }
 
 form.example input[type=text] {
@@ -120,4 +118,10 @@ form.example button {
 
 .round {
     border-radius: 10%;
+}
+
+a {
+    color: orange !important;
+    box-shadow: 4px 4px 4px #aaaaaa;
+    border-radius: 4%;
 }
