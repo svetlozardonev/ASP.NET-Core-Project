@@ -1,24 +1,5 @@
-﻿@model IndexViewModel
-
-
-@{
-    var movies = Model.Movies;
-    var firstMovie = movies.Any() ? movies[0] : null;
-    var secondMovie = movies.Count > 1 ? movies[1] : null;
-    var thirdMovie = movies.Count > 2 ? movies[2] : null;
-
-}
-
-@if (!movies.Any())
-{
-    <div class="jumbotron">
-        <h1 class="display-4">Welcome in the best movie site for reviews</h1>
-        <p class="lead">There are no movies in the system! Please add one!</p>
-        <hr class="my-4">
-        <p class="lead">
-            <a asp-controller="Movies" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add Movie</a>
-        </p>
-    </div>
+﻿@{
+    ViewData["Title"] = "Welcome!";
 }
 
 <div class="text-center" style="color: whitesmoke">
@@ -51,25 +32,3 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-
-<div class="mb-5">  
-
-</div>
-
-<div class="container">
-    <div class="jumbotron">
-        <div class="row">
-            <h2 class="col-md-4 text-center">
-                @Model.TotalMovies Movies
-            </h2>
-            <h2 class="col-md-4 text-center">
-                @Model.TotalUsers Users
-            </h2>
-        </div>
-    </div>
-</div>
-
-
-
-
-

@@ -7,8 +7,8 @@ namespace PickMovie
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using PickMovie.Data;
-    using PickMovie.Infrastructure;
+    using TestProject.Data;
+    using TestProject.Infrastructure;
 
     public class Startup
     {
@@ -43,7 +43,7 @@ namespace PickMovie
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            app.PrepareDataBase();
+            app.PrepareDatabase();
 
             if (env.IsDevelopment())
             {

@@ -61,7 +61,6 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
-
 }
 .footer {
   position: absolute;
@@ -72,30 +71,53 @@ body {
 }
 
 .heading-margin {
-    margin-bottom: 20px;
-    
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 .layout-logo {
     max-width: auto;
     max-height: 86px;
+    box-shadow: 4px 4px 4px #aaaaaa;
+    border-radius: 4%;
 }
 
-.jumbotron {
-    background-image: url("/css/wp2714490.jpg");
-    background-size: cover;
+form.example input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+}
+
+form.example button {
+    width: 20%;
+    padding: 10px;
+    background: #ff8000;
     color: white;
-    padding-bottom: 45px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
 }
 
+.previous {
+    background-color: #ff8000;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
 
+.next {
+    background-color: #ff8000;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
 
-
-
-
-
-
-
-
-
+.round {
+    border-radius: 10%;
+}

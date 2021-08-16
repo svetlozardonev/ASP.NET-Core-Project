@@ -1,22 +1,15 @@
-﻿namespace PickMovie.Models.Movies
+﻿namespace TestProject.Models.Movies
 {
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
     public class AllMoviesQueryModel
     {
-        public const int MoviesPerPage = 4;
-        public string Title { get; init; }
-        public IEnumerable<string> Titles { get; init; }
-
-        [Display(Name ="Search")]
-        public string SearchTerm { get; init; }
+        public const int MoviesPerPage = 8;
         public int CurrentPage { get; set; } = 1;
 
-        public MoviesSorting Sorting { get; init; }
+        public int TotalMovies { get; set; }
 
-        public int CategoryId { get; init; }
+        public string SearchTerm { get; set; }
 
-        public IEnumerable<MovieListingViewModel> Movies { get; init; }
+        public IEnumerable<MovieListingViewModel> Movies { get; set; }
     }
 }

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PickMovie.Data;
+using TestProject.Data;
 
-namespace PickMovie.Data.Migrations
+namespace TestProject.Data.Migrations
 {
     [DbContext(typeof(PickMovieDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -82,6 +82,10 @@ namespace PickMovie.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -133,6 +137,8 @@ namespace PickMovie.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -219,7 +225,7 @@ namespace PickMovie.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PickMovie.Data.Models.Category", b =>
+            modelBuilder.Entity("TestProject.Data.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -235,12 +241,40 @@ namespace PickMovie.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("PickMovie.Data.Models.Movie", b =>
+            modelBuilder.Entity("TestProject.Data.Models.Comment", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MovieId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("TestProject.Data.Models.Movie", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -256,12 +290,16 @@ namespace PickMovie.Data.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -270,7 +308,68 @@ namespace PickMovie.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("TestProject.Data.Models.UserComment", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CommentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "CommentId");
+
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("UserComments");
+                });
+
+            modelBuilder.Entity("TestProject.Data.Models.UserMovie", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MovieId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("UserMovies");
+                });
+
+            modelBuilder.Entity("TestProject.Data.Models.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("AboutMe")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("Gender")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<DateTime>("RegisteredOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -324,20 +423,107 @@ namespace PickMovie.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PickMovie.Data.Models.Movie", b =>
+            modelBuilder.Entity("TestProject.Data.Models.Comment", b =>
                 {
-                    b.HasOne("PickMovie.Data.Models.Category", "Category")
+                    b.HasOne("TestProject.Data.Models.User", "Author")
+                        .WithMany("Comments")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TestProject.Data.Models.Movie", "Movie")
+                        .WithMany("Comments")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("TestProject.Data.Models.Movie", b =>
+                {
+                    b.HasOne("TestProject.Data.Models.Category", "Category")
                         .WithMany("Movies")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("TestProject.Data.Models.User", "User")
+                        .WithMany("Movies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PickMovie.Data.Models.Category", b =>
+            modelBuilder.Entity("TestProject.Data.Models.UserComment", b =>
+                {
+                    b.HasOne("TestProject.Data.Models.Comment", "Comment")
+                        .WithMany("UserComments")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TestProject.Data.Models.User", "User")
+                        .WithMany("UserComments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TestProject.Data.Models.UserMovie", b =>
+                {
+                    b.HasOne("TestProject.Data.Models.Movie", "Movie")
+                        .WithMany("UserMovies")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TestProject.Data.Models.User", "User")
+                        .WithMany("UserMovies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TestProject.Data.Models.Category", b =>
                 {
                     b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("TestProject.Data.Models.Comment", b =>
+                {
+                    b.Navigation("UserComments");
+                });
+
+            modelBuilder.Entity("TestProject.Data.Models.Movie", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("UserMovies");
+                });
+
+            modelBuilder.Entity("TestProject.Data.Models.User", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Movies");
+
+                    b.Navigation("UserComments");
+
+                    b.Navigation("UserMovies");
                 });
 #pragma warning restore 612, 618
         }

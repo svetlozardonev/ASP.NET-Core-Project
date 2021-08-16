@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PickMovie.Data;
 using System;
+using TestProject.Data;
 
-namespace PickMovie.Data.Migrations
+namespace TestProject.Data.Migrations
 {
     [DbContext(typeof(PickMovieDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]

@@ -1,20 +1,20 @@
-﻿namespace PickMovie.Infrastructure
+﻿namespace TestProject.Infrastructure
 {
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.EntityFrameworkCore;
+    using TestProject.Data;
     using Microsoft.Extensions.DependencyInjection;
-    using PickMovie.Data;
-    using PickMovie.Data.Models;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
+    using TestProject.Data.Models;
 
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder PrepareDataBase(
+        public static IApplicationBuilder PrepareDatabase(
             this IApplicationBuilder app)
         {
             using var scopedServices = app.ApplicationServices.CreateScope();
 
-            var data = scopedServices.ServiceProvider.GetService<PickMovieDbContext>();
+            var data = scopedServices.ServiceProvider.GetRequiredService<PickMovieDbContext>();
 
             data.Database.Migrate();
 
@@ -32,17 +32,19 @@
 
             data.Categories.AddRange(new[]
             {
-                new Category { Name = "Action" },
-                new Category { Name = "Animation" },
-                new Category { Name = "Comedy" },
-                new Category { Name = "Fantasy" },
-                new Category { Name = "Horror" },
-                new Category { Name = "Mystery" },
-                new Category { Name = "Thriller" },
+                new Category { Name = "Action"},
+                new Category { Name = "Adventure"},
+                new Category { Name = "Animation"},
+                new Category { Name = "Comedy"},
+                new Category { Name = "Crime"},
+                new Category { Name = "Drama"},
+                new Category { Name = "Fantasy"},
+                new Category { Name = "Horror"},
+                new Category { Name = "Mystery"},
+                new Category { Name = "Thriller"}
             });
 
             data.SaveChanges();
         }
-
     }
 }

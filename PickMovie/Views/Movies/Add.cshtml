@@ -1,40 +1,39 @@
 ﻿@model AddMovieFormModel 
 
 @{ 
-    ViewData["Title"] = "Add Movie";
+    ViewData["Title"] = "Add Movie - ";
 }
 
-<div class=" row">
-    <div class="col-sm-12 offset-lg-1 col-lg-8 offset-xl-1 col-xl-6">
-        <h2 class="heading-margin" style="color: orange">Add Movie</h2>
-
+<div class="row">
+    <div class="col-sm-12 offset-lg-1 col-lg-8 col-xl-6">
+        <h2 class="heading-margin" style="color: darkorange"><strong>Add Movie</strong></h2>
         <form method="post">
-            <div class="form-group" style="color: orange">
+            <div class="form-group" style="color: darkorange">
                 <label asp-for="Title"></label>
                 <input asp-for="Title" class="form-control">
                 <span asp-validation-for="Title" class="small text-danger"></span>
             </div>
-            <div class="form-group" style="color: orange">
+            <div class="form-group" style="color: darkorange">
                 <label asp-for="Description"></label>
-                <textarea asp-for="Description" rows="4" class="form-control"></textarea>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
-            <div class="form-group" style="color: orange">
+            <div class="form-group" style="color: darkorange">
                 <label asp-for="Director"></label>
                 <input asp-for="Director" class="form-control">
                 <span asp-validation-for="Director" class="small text-danger"></span>
             </div>
-            <div class="form-group" style="color: orange">
-                <label asp-for="Year"></label>
-                <input asp-for="Year" class="form-control">
-                <span asp-validation-for="Year" class="small text-danger"></span>
-            </div>
-            <div class="form-group" style="color: orange">
+            <div class="form-group" style="color: darkorange">
                 <label asp-for="ImageUrl"></label>
                 <input asp-for="ImageUrl" class="form-control">
                 <span asp-validation-for="ImageUrl" class="small text-danger"></span>
             </div>
-            <div class="form-group" style="color: orange">
+            <div class="form-group" style="color: darkorange">
+                <label asp-for="Year"></label>
+                <input asp-for="Year" class="form-control">
+                <span asp-validation-for="Year" class="small text-danger"></span>
+            </div>
+            <div class="form-group" style="color: darkorange">
                 <label asp-for="CategoryId"></label>
                 <select asp-for="CategoryId" class="form-control">
                     @foreach (var category in Model.Categories)
@@ -44,9 +43,9 @@
                 </select>
             </div>
 
-            <input class="btn btn-primary" type="submit" value="Add" style="color: black; background-color: orange; border: none;" />
+            <input class="btn btn-primary" type="submit" value="Add" style="color: black; background-color: darkorange; border: none;" />
 
         </form>
-
     </div>
+    
 </div>
