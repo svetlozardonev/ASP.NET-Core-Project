@@ -33,7 +33,7 @@
                 <input asp-for="Year" class="form-control">
                 <span asp-validation-for="Year" class="small text-danger"></span>
             </div>
-            <div class="form-group" style="color: darkorange">
+            <div class="form-group mb-3" style="color: darkorange">
                 <label asp-for="CategoryId"></label>
                 <select asp-for="CategoryId" class="form-control">
                     @foreach (var category in Model.Categories)
@@ -43,7 +43,7 @@
                 </select>
             </div>
 
-            <input class="btn btn-primary" type="submit" value="Add" style="color: black; background-color: darkorange; border: none;" />
+            <input class="btn btn-warning" type="submit" value="Add" style="color: black; background-color: darkorange; border: none;" />
 
         </form>
     </div>

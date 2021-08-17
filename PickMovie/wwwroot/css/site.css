@@ -77,7 +77,7 @@ body {
 
 .layout-logo {
     max-width: auto;
-    max-height: 86px;
+    max-height: 105px;
 }
 
 form.example input[type=text] {
@@ -86,7 +86,7 @@ form.example input[type=text] {
     border: 1px solid grey;
     float: left;
     width: 80%;
-    background: #f1f1f1;
+    background: #e6ccff;
 }
 
 form.example button {
@@ -148,3 +148,28 @@ a {
     box-shadow: 4px 4px 4px #aaaaaa;
     border-radius: 4%;
 }
+
+
+.divider-text {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+    .divider-text span {
+        padding: 7px;
+        font-size: 12px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .divider-text:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        border-bottom: 1px solid #ddd;
+        top: 55%;
+        left: 0;
+        z-index: 1;
+    }

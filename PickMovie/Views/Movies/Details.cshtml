@@ -1,8 +1,13 @@
 ﻿@model MovieListingViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Details - ";
 }
+
+
+<div class="mb-5"></div>
+
+
 <div class="container-fluid">
     <div class="card text-center">
         <div class="card-header">
@@ -16,7 +21,7 @@
                 Category -  @Model.Category
             </p>
             <img class="mb-3" src="@Model.ImageUrl" height="500" alt="@Model.Title @Model.Year ">
-
+            <h4>Summary</h4>
             <h5 class="card-title mb-4 text-left">@Model.Description</h5>
         </div>
     </div>
@@ -48,5 +53,5 @@
         </div>
     </div>
 </div>
-
+<div class="mb-5"></div>
 
