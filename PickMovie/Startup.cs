@@ -7,6 +7,7 @@ namespace PickMovie
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using PickMovie.Services;
     using TestProject.Data;
     using TestProject.Data.Models;
     using TestProject.Infrastructure;
@@ -39,6 +40,7 @@ namespace PickMovie
                 .AddEntityFrameworkStores<PickMovieDbContext>();
 
             services.AddControllersWithViews();
+            services.AddTransient<ITimeWarper, TimeWarper>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

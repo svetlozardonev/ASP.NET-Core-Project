@@ -3,24 +3,27 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using PickMovie.Models.Comments;
+    using PickMovie.Services;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using TestProject.Data;
     using TestProject.Data.Models;
-    using TestProject.Infrastructure;
     using TestProject.Models.Movies;
 
     public class MoviesController : Controller
     {
         private readonly PickMovieDbContext data;
         private readonly UserManager<User> userManager;
-
+        private readonly ITimeWarper timeWarper;
         public MoviesController(PickMovieDbContext data,
-            UserManager<User> userManager)
+            UserManager<User> userManager,
+            ITimeWarper timeWarper)
         {
             this.data = data;
             this.userManager = userManager;
+            this.timeWarper = timeWarper;
         }
 
         public IActionResult All([FromQuery]AllMoviesQueryModel query)
@@ -69,6 +72,11 @@
                 .Include(m => m.Category)
                 .FirstOrDefaultAsync(m => m.Id == movieId);
 
+            if (movie == null)
+            {
+                return Redirect("Movies/All");
+            }
+
             return View(new MovieListingViewModel
             {
                 Id = movie.Id,
@@ -78,6 +86,18 @@
                 ImageUrl = movie.ImageUrl,
                 Year = movie.Year,
                 Category = movie.Category.Name,
+                Comments = this.data.Comments
+                .Include(c => c.Author)
+                .Select(c => new CommentViewModel
+                {
+                    Id = c.Id,
+                    Content = c.Content,
+                    CreatedOn = this.timeWarper.TimeAgo(c.CreatedOn),
+                    AuthorId = c.AuthorId,
+                    AuthorName = c.Author.UserName,
+                    AuthorAvatarUrl = c.Author.Avatar,
+                    MovieId = c.MovieId,
+                }).ToList()
             });
         }
 

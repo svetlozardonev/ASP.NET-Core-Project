@@ -15,7 +15,7 @@
         [MaxLength(25)]
         public string LastName { get; set; }
 
-        [MaxLength(5)]
+        [MaxLength(6)]
         public string Gender { get; set; }
 
         public DateTime RegisteredOn { get; init; } = DateTime.UtcNow;

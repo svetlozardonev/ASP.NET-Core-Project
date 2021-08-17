@@ -120,8 +120,31 @@ form.example button {
     border-radius: 10%;
 }
 
+.logo-shadow:hover {
+    box-shadow: 4px 4px 4px #aaaaaa;
+    border-radius: 4%;
+}
+
+.media-img-40 img {
+    width: 40px;
+    height: 40px;
+}
+
+.dot {
+    height: 7px;
+    width: 7px;
+    margin-top: 3px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block
+}
+
+
 a {
     color: orange !important;
+}
+
+.anchor-shadow a:hover {
     box-shadow: 4px 4px 4px #aaaaaa;
     border-radius: 4%;
 }
