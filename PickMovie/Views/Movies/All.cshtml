@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-md-6">
-                <a class="btn btn-default float-end @(Model.CurrentPage == maxPage ? "disabled" : string.Empty)" style="color: black; background-color: darkorange;"
+                <a class="btn btn-default float-right @(Model.CurrentPage == maxPage ? "disabled" : string.Empty)" style="color: black; background-color: darkorange;"
                    asp-controller="Movies"
                    asp-action="All"
                    asp-route-currentPage="@(Model.CurrentPage + 1)"
@@ -56,7 +56,7 @@
     {
         <div class="col-md-3">
             <div class="card mb-3">
-                <img class="card-img-top" src="@movie.ImageUrl" alt="@movie.Title - @movie.Category">
+                <img class="card-img-top" style="height: 400px; width:auto" src="@movie.ImageUrl" alt="@movie.Title - @movie.Category">
                 <div class="card-body">
                     <h5 class="card-title" style="font-size: 30px;"><strong>@movie.Title</strong></h5>
                     <p style="font-size: 17px;">@movie.Category</p>
@@ -66,7 +66,8 @@
                     <li class="list-group-item">@movie.Year</li>
                 </ul>
                 <div class="card-body">
-                    <a asp-controller="Movies" asp-action="Details" asp-route-movieId="@movie.Id" class="btn btn-basic">View More</a>
+                    <a style="color: black" asp-controller="Movies" asp-action="Details" asp-route-movieId="@movie.Id" class="btn btn-outline-warning">View More</a>
+                    <a style="color: black" asp-controller="Movies" asp-action="Edit" asp-route-movieId="@movie.Id" class="btn btn-outline-warning">Edit</a>
                 </div>
             </div>
         </div>

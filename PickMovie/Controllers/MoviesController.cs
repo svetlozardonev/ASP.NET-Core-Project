@@ -1,5 +1,6 @@
 ﻿namespace TestProject.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -60,6 +61,7 @@
             return View(query);
         }
 
+        [Authorize]
         public IActionResult Add() => View(new AddMovieFormModel
         {
             Categories = this.GetMovieCategories()
@@ -105,6 +107,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddMovieFormModel movie)
         {
             
@@ -135,6 +138,50 @@
 
             return RedirectToAction(nameof(All));
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Edit(string movieId)
+        {
+            var movie = await this.data.Movies.FirstOrDefaultAsync(m => m.Id == movieId);
+
+            if (movie == null) return NotFound();
+
+            return View(new AddMovieFormModel
+            {
+                Id = movieId,
+                Title = movie.Title,
+                Description = movie.Description,
+                Director = movie.Director,
+                ImageUrl = movie.ImageUrl,
+                Year = movie.Year,
+            });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(AddMovieFormModel model)
+        {
+            var movie = await this.data.Movies.FirstOrDefaultAsync(m => m.Id == model.Id);
+
+            if (movie == null) return NotFound();
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            movie.Title = model.Title;
+            movie.Description = model.Description;
+            movie.Director = model.Director;
+            movie.ImageUrl = model.ImageUrl;
+            movie.Year = model.Year;
+
+            await this.data.SaveChangesAsync();
+
+            return Redirect($"/Movies/Details?movieId={movie.Id}");
+        }
+
         private IEnumerable<MovieCategoryViewModel> GetMovieCategories()
             => this.data
                 .Categories

@@ -140,7 +140,7 @@ form.example button {
 }
 
 
-a {
+.text-orange {
     color: orange !important;
 }
 
@@ -148,3 +148,5 @@ a {
     box-shadow: 4px 4px 4px #aaaaaa;
     border-radius: 4%;
 }
+
+

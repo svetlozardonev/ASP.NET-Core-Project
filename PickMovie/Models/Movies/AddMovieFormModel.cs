@@ -5,6 +5,8 @@
     using static Data.DataConstants;
     public class AddMovieFormModel
     {
+        public string Id { get; set; }
+
         [Required(ErrorMessage = "This field is required!")]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength, ErrorMessage = "The title length must be in range {2} - {1} symbols!")]
         public string Title { get; set; }

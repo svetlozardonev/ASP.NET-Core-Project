@@ -4,19 +4,19 @@
 @if (this.signInManager.IsSignedIn(User))
 {
     <li class="nav-item anchor-shadow">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity.Name!</a>
+        <a class="nav-link text-orange" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity.Name!</a>
     </li>
-    <li class="nav-item">
-        <a asp-area="Identity" asp-page="/Account/Logout" class="nav-link">Logout</a>
+    <li class="nav-item anchor-shadow">
+        <a asp-area="Identity" asp-page="/Account/Logout" class="nav-link text-orange">Logout</a>
     </li>
 }
 else
 {
     <li class="nav-item anchor-shadow">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="nav-link text-orange" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>
     <li class="nav-item anchor-shadow ml-3">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link text-orange" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }
 </ul>

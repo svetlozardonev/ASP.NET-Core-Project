@@ -7,20 +7,25 @@
 <div class="mb-5"></div>
 
 <div class="container-fluid">
-    <div class="card text-center" style="background-color: white">
-        <div class="card-header">
-            <h4 style="color: darkorange">
-                @Model.Title (@Model.Year)
-            </h4>
-        </div>
+    <div class="card" style="background-color: #e6ccff">
+        
         <div class="card-body bg-transparent">
-            <p style="color: darkorange">Director - @Model.Director</p>
-            <p style="color: darkorange">
-                Category -  @Model.Category
-            </p>
-            <img class="mb-3" src="@Model.ImageUrl" height="500" alt="@Model.Title @Model.Year ">
-            <h4 style="color: darkorange">Summary</h4>
-            <h5 class="card-title mb-4 text-left" style="color: darkorange">@Model.Description</h5>
+            <div class="row">
+                <div class="col-5">
+                    <img class="mb-3" src="@Model.ImageUrl" height="500" alt="@Model.Title @Model.Year ">
+                </div>
+                <div class="col" style="background-color: #e6ccff">
+                    <h3 class="mb-3" style="color: black">@Model.Title (@Model.Year)</h3>
+                    <p style="color: black">Director - @Model.Director</p>
+                    <p style="color: black">
+                        Category -  @Model.Category
+                    </p>
+                    <div class="mt-auto mb-0" style="position: absolute; bottom: 0">
+                        <h4 class="mb-3" style="color: black">Summary</h4>
+                        <h5 class="card-title mb-4 text-left" style="color: black">@Model.Description</h5>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
