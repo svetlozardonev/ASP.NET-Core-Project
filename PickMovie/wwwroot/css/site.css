@@ -121,7 +121,7 @@ form.example button {
 }
 
 .logo-shadow:hover {
-    box-shadow: 4px 4px 4px #aaaaaa;
+    box-shadow: 4px 4px 4px #e6ccff;
     border-radius: 4%;
 }
 
@@ -145,8 +145,17 @@ form.example button {
 }
 
 .anchor-shadow a:hover {
-    box-shadow: 4px 4px 4px #aaaaaa;
+    box-shadow: 4px 4px 4px #e6ccff;
     border-radius: 4%;
+}
+
+
+#heart {
+    font-size: 20px;
+}
+
+#heart:hover {
+        color: red;
 }
 
 

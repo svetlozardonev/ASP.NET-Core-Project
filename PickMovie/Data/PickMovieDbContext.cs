@@ -15,6 +15,7 @@
         public DbSet<Comment> Comments { get; init; }
         public DbSet<UserComment> UserComments { get; init; }
         public DbSet<UserMovie> UserMovies { get; init; }
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,6 +32,7 @@
                 .WithMany(m => m.Movies)
                 .HasForeignKey(m => m.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
 
             builder
                 .Entity<Comment>()

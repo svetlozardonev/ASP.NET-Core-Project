@@ -35,7 +35,6 @@
         public int CategoryId { get; set; }
 
         public Category Category { get; init; }
-
         public ICollection<Comment> Comments { get; init; } = new List<Comment>();
         public ICollection<UserMovie> UserMovies { get; set; } = new List<UserMovie>();
 

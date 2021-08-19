@@ -15,6 +15,7 @@
         [StringLength(MovieDescriptionMaxLength, MinimumLength = MovieDescriptionMinLength, ErrorMessage = "The description must be in range {2} - {1} symbols!")]
         public string Description { get; set; }
 
+
         [Required(ErrorMessage = "This field is required!")]
         [StringLength(DirectorNameMaxLength, MinimumLength = DirectorNameMinLength, ErrorMessage = "Director name length must be in range {2} - {1} symbols!")]
         public string Director { get; set; }

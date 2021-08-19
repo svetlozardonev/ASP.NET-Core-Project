@@ -58,7 +58,7 @@
             <div class="card mb-3">
                 <img class="card-img-top" style="height: 400px; width:auto" src="@movie.ImageUrl" alt="@movie.Title - @movie.Category">
                 <div class="card-body">
-                    <h5 class="card-title" style="font-size: 30px;"><strong>@movie.Title</strong></h5>
+                    <h5 class="card-title" style="font-size: 30px;"><strong>@movie.Title <i id="heart" class="far fa-heart ml-4"></i></strong></h5>
                     <p style="font-size: 17px;">@movie.Category</p>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -67,17 +67,10 @@
                 </ul>
                 <div class="card-body">
                     <a style="color: black" asp-controller="Movies" asp-action="Details" asp-route-movieId="@movie.Id" class="btn btn-outline-warning">View More</a>
-                    <a style="color: black" asp-controller="Movies" asp-action="Edit" asp-route-movieId="@movie.Id" class="btn btn-outline-warning">Edit</a>
+                    <a style="color: black" asp-controller="Movies" asp-action="Edit" asp-route-movieId="@movie.Id" class="btn btn-outline-warning ml-4">Edit</a>
                 </div>
             </div>
         </div>
     }
 </div>
-
-
-
-
-
-
-
 
