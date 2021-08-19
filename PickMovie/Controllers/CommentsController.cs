@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using PickMovie.Services;
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
     using TestProject.Data;
     using TestProject.Data.Models;
@@ -15,7 +16,8 @@
         private readonly ITimeWarper timeWarper;
         private readonly PickMovieDbContext data;
         private readonly UserManager<User> userManager;
-
+        
+       
         public CommentsController(ITimeWarper timeWarper,
             PickMovieDbContext data,
             UserManager<User> userManager)
@@ -58,6 +60,7 @@
             {
                 return BadRequest();
             } 
+
 
             var comment = new Comment
             {

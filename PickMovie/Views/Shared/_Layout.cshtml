@@ -4,15 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] Pick the best movie</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-vapor.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     
 </head>
-<body>
+<body style="background: url('https://www.wallpaperuse.com/wallp/98-985165_m.jpg') ">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-transparent border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-transparent border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand logo-shadow" asp-area="" asp-controller="Home" asp-action="Index">
                     <img class="layout-logo" src="/css/logo.png" alt="Logo" />
@@ -23,11 +23,11 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item ml-5 anchor-shadow" style="font-size:17px">
+                        <li class="nav-item ml-3 anchor-shadow" style="font-size:17px">
                             <a class="nav-link anchor-shadow" asp-area="" asp-controller="Movies" asp-action="Add">Add Movie</a>
                         </li>
-                        <li class="nav-item ml-5 anchor-shadow" style="font-size:17px">
-                            <a class="nav-link anchor-shadow ml-5" asp-area="" asp-controller="Movies" asp-action="All">All Movies</a>
+                        <li class="nav-item ml-3 anchor-shadow" style="font-size:17px">
+                            <a class="nav-link anchor-shadow ml-3" asp-area="" asp-controller="Movies" asp-action="All">All Movies</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -46,7 +46,7 @@
             #myFooter {
             }
         </style>
-        <div class="container" >
+        <div class="container" style="color: white">
             &copy; <a> @DateTime.UtcNow.Year - PickYourMovie</a>
         </div>
     </footer>

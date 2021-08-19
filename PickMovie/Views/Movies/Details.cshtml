@@ -4,54 +4,65 @@
     ViewBag.Title = "Details - ";
 }
 
-
 <div class="mb-5"></div>
 
-
 <div class="container-fluid">
-    <div class="card text-center">
+    <div class="card text-center" style="background-color: white">
         <div class="card-header">
-            <h4>
+            <h4 style="color: darkorange">
                 @Model.Title (@Model.Year)
             </h4>
         </div>
-        <div class="card-body">
-            <p>Director - @Model.Director</p>
-            <p>
+        <div class="card-body bg-transparent">
+            <p style="color: darkorange">Director - @Model.Director</p>
+            <p style="color: darkorange">
                 Category -  @Model.Category
             </p>
             <img class="mb-3" src="@Model.ImageUrl" height="500" alt="@Model.Title @Model.Year ">
-            <h4>Summary</h4>
-            <h5 class="card-title mb-4 text-left">@Model.Description</h5>
+            <h4 style="color: darkorange">Summary</h4>
+            <h5 class="card-title mb-4 text-left" style="color: darkorange">@Model.Description</h5>
         </div>
     </div>
-    <div class="d-flex card justify-content-center mt-3">
-        <div class="d-flex flex-column col">
-            <div class="coment-bottom card-body bg-white p-2 px-4">
-                <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                    <img class="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" width="38">
-                    <form asp-controller="Comments" asp-action="Create" method="post">
-                        <input asp-for="Id" class="form-control d-none">
-                        <span asp-validation-for="Id" class="small text-danger"></span>
-                        <input asp-for="CommentContent" type="text" class="form-control mr-3" placeholder="Add comment">
-                        <span asp-validation-for="CommentContent" class="small text-danger"></span>
-                        <button class="btn btn-primary" type="submit">Comment</button>
-                    </form>
-                </div>
-                <div class="commented-section mt-2">
-                    @{
-                        foreach (var comment in Model.Comments)
-                        {
-                            <div class="d-flex flex-row align-items-center commented-user">
-                                <h5 class="media-img-40 mr-2"><img class="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" alt="avatar" />@comment.AuthorName</h5><span class="dot mb-2"></span><span class="mb-2 ml-2">@comment.CreatedOn</span>
-                            </div>
-                            <div class="comment-text-sm"><span>@comment.Content</span></div>
+    
+    <form asp-controller="Comments" asp-action="Create" method="post">
+        <div class="d-flex card justify-content-center mt-3">
+            <div class="d-flex flex-column col">
+                <div class="coment-bottom card-body bg-light p-2 px-4">
+                   
+                    <h2 class="mb-3">Comments (@Model.Comments.Count)</h2>
+                    <div class="commented-section mt-2 mb-3">
+                        @{
+                            foreach (var comment in Model.Comments)
+                            {
+                                <div class="d-flex flex-row align-items-center commented-user ">
+                                    <h5 class="media-img-40 mr-2 "><img class="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" alt="avatar" />@comment.AuthorName</h5><span class="dot mb-2"></span><span class="mb-2 ml-2 ">@comment.CreatedOn</span>
+                                </div>
+                                <div class="comment-text-sm mb-4">
+                                    <span>@comment.Content</span>
+                                    <div class="reply-section">
+                                        <div class="d-flex flex-row align-items-center voting-icons">
+                                            <span class="ml-2"></span><span class="dot ml-2"></span>
+                                            <h6 class="ml-2 mt-1">Reply</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
                         }
-                    }
+                    </div>
+                    <div class="d-flex flex-row add-comment-section mt-4 mb-4 ">
+                        <img class="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" width="38">
+
+                        <input asp-for="Id" class="form-control d-none ">
+                        <span asp-validation-for="Id" class="small text-danger"></span>
+                        <input asp-for="CommentContent" type="text" class="form-control mr-3 " placeholder="Add comment">
+                        <span asp-validation-for="CommentContent" class="small text-danger "></span>
+                        <button class="btn btn-primary " type="submit">Comment</button>
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
-<div class="mb-5"></div>
 
+<div class="mb-5"></div>

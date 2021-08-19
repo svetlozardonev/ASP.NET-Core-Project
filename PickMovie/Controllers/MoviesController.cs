@@ -68,6 +68,7 @@
         [HttpGet]
         public async Task<IActionResult> Details(string movieId)
         {
+
             var movie = await this.data.Movies
                 .Include(m => m.Category)
                 .FirstOrDefaultAsync(m => m.Id == movieId);
@@ -76,6 +77,7 @@
             {
                 return Redirect("Movies/All");
             }
+            var totalComments = this.data.Comments.Where(c => c.Id == movieId);
 
             return View(new MovieListingViewModel
             {
@@ -88,6 +90,7 @@
                 Category = movie.Category.Name,
                 Comments = this.data.Comments
                 .Include(c => c.Author)
+                .Where(c => c.MovieId == movieId)
                 .Select(c => new CommentViewModel
                 {
                     Id = c.Id,
