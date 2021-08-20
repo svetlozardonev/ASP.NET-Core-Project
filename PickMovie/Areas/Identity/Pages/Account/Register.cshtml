@@ -26,7 +26,12 @@
                     <input asp-for="Input.ConfirmPassword" class="form-control" />
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-warning" style="color: black; background-color: darkorange; border: none;">Register</button>
+                <button type="submit" class="btn btn-warning mb-3" style="color: black; background-color: darkorange; border: none;">Register</button>
+                <div class="form-group">
+                    <p>
+                        <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" style="color: darkorange">Already have an account? Click here</a>
+                    </p>
+                </div>
             </form>
         </div>
     
