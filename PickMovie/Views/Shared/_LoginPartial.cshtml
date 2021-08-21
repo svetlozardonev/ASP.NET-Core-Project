@@ -1,19 +1,24 @@
 ﻿@using Microsoft.AspNetCore.Identity
 
+@{
+    var user = await this.userManager.GetUserAsync(this.User);
+    var userId = user == null ? null : user.Id;
+ }
+
 <ul class="navbar-nav">
     @if (this.signInManager.IsSignedIn(User))
     {
         <li class="nav-item anchor-shadow">
-            <a class="nav-link text-orange" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity.Name!</a>
+            <a class="nav-link text-orange" asp-controller="Users" asp-action="Profile" asp-route-userId="@user.Id" title="Manage">Hello, @User.Identity.Name!</a>
         </li>
         <li class="nav-item anchor-shadow">
-            <a asp-area="Identity" asp-page="/Account/Logout" class="nav-link text-orange">Logout</a>
+            <a asp-controller="Users" asp-action="Logout" asp-route-returnUrl="@Context.Request.GetDisplayUrl()" class="nav-link text-orange">Logout</a>
         </li>
     }
     else
     {
         <li class="nav-item anchor-shadow">
-            <a class="nav-link text-orange" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link text-orange" asp-controller="Users" asp-action="Register" asp-route-returnUrl="@Context.Request.GetDisplayUrl()">Register</a>
         </li>
         <li class="nav-item anchor-shadow ml-3">
             <a class="nav-link text-orange" asp-area="Identity" asp-page="/Account/Login">Login</a>

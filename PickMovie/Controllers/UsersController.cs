@@ -1,12 +1,13 @@
 ﻿namespace PickMovie.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PickMovie.Models.Users;
-    using System.Linq;
-    using System.Threading.Tasks;
     using TestProject.Data.Models;
+   // using TestProject.Models.Users;
 
     public class UsersController : Controller
     {
@@ -63,10 +64,19 @@
                 return View(user);
             }
 
+            await this.signInManager.SignInAsync(registeredUser, true);
             return RedirectToAction("Index", "Home");
         }
 
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Logout(string returnUrl = null)
+        {
+            var ReturnUrl = returnUrl == null ? Url.Content("/") : returnUrl;
+            await signInManager.SignOutAsync();
+            return Redirect(ReturnUrl);
+        }
 
 
         [HttpGet]
@@ -94,6 +104,7 @@
 
             return View(result);
         }
+
 
     }
 }

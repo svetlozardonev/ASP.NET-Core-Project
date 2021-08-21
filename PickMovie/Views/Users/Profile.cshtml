@@ -3,30 +3,20 @@
 @{ 
     ViewBag.Title = "Profile - ";
     var user = await this.userManager.GetUserAsync(User);
-    Layout = null;
     var avatar = "";
-    avatar = String.IsNullOrWhiteSpace(Model.Avatar) ? "https://www.pikpng.com/pngl/b/80-805523_default-avatar-svg-png-icon-free-download-264157.png" : Model.Avatar;
+    avatar = String.IsNullOrWhiteSpace(Model.Avatar) ? "https://scontent-otp1-1.xx.fbcdn.net/v/t1.15752-9/240016017_1049230652517983_8501886315248112231_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=ae9488&_nc_ohc=8Ih6m_pXdagAX95Frb9&_nc_ht=scontent-otp1-1.xx&oh=0a662d7f529213d074ff7952db352323&oe=6145F0E5" : Model.Avatar;
 }
-
 
 
 <div class="container-fluid">
     <div class="col" align="center">
-        <div class="profile-info col">
+        <div class="profile-info col-md-8">
             <div class="user-heading round mb-1">
-                <img src="@avatar"/>
-                <h1>@Model.Username</h1>
-                <span><i class="fas fa-envelope"> @Model.Email</i></span><br />
+                <img src="@avatar" style="width: 40px; height: 40px;"/>
+                <h1 class="text-orange">@Model.Username</h1>
+                <span><i class="fas fa-envelope text-orange"> @Model.Email</i></span><br />
             </div> 
-            <div class="card-body text-left">
-                <ul class="list-group">
-                    <li class="list-group-item">test</li>
-                    <li class="list-group-item">test</li>
-                    <li class="list-group-item">test</li>
-                    <li class="list-group-item">test</li>
-                    <li class="list-group-item">test</li>
-                </ul>
-            </div>
+            
         </div>
     </div>
 </div>
