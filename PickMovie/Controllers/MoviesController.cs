@@ -145,7 +145,10 @@
         {
             var movie = await this.data.Movies.FirstOrDefaultAsync(m => m.Id == movieId);
 
-            if (movie == null) return NotFound();
+            if (movie == null)
+            {
+                return NotFound();
+            }
 
             return View(new AddMovieFormModel
             {
@@ -182,6 +185,42 @@
             return Redirect($"/Movies/Details?movieId={movie.Id}");
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Delete(string movieId)
+        {
+            var movie = await this.data.Movies.FirstOrDefaultAsync(m => m.Id == movieId);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(new MovieListingViewModel 
+            { 
+                Id = movieId,
+            });
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(string movieId)
+        {
+            var movie = await this.data.Movies.FirstOrDefaultAsync(m => m.Id == movieId);
+            var comments = this.data.Comments.Where(c => c.MovieId == movieId);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            this.data.Comments.RemoveRange(comments);
+            this.data.Movies.Remove(movie);
+            this.data.SaveChanges();
+
+            return RedirectToAction(nameof(All));
+        }
         private IEnumerable<MovieCategoryViewModel> GetMovieCategories()
             => this.data
                 .Categories
@@ -191,5 +230,7 @@
                     Name = m.Name
                 })
                 .ToList();
+
+
     }
 }

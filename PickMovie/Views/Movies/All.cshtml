@@ -66,8 +66,9 @@
                     <li class="list-group-item">@movie.Year</li>
                 </ul>
                 <div class="card-body">
-                    <a style="color: black" asp-controller="Movies" asp-action="Details" asp-route-movieId="@movie.Id" class="btn btn-outline-warning">View More</a>
-                    <a style="color: black" asp-controller="Movies" asp-action="Edit" asp-route-movieId="@movie.Id" class="btn btn-outline-warning ml-4">Edit</a>
+                    <a style="color: black" asp-controller="Movies" asp-action="Details" asp-route-movieId="@movie.Id" class="btn btn-outline-warning mb-4">View More</a>
+                    <a style="color: black" asp-controller="Movies" asp-action="Edit" asp-route-movieId="@movie.Id" class="btn btn-outline-warning ml-4 mb-4">Edit</a>
+                    <a style="color: black" asp-controller="Movies" asp-action="Delete" asp-route-movieId="@movie.Id" class="btn btn-outline-warning">Delete</a>
                 </div>
             </div>
         </div>

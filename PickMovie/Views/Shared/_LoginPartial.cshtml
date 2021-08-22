@@ -18,10 +18,10 @@
     else
     {
         <li class="nav-item anchor-shadow">
-            <a class="nav-link text-orange" asp-controller="Users" asp-action="Register" asp-route-returnUrl="@Context.Request.GetDisplayUrl()">Register</a>
+            <a onclick="showPopup('/Users/Register/', '@Context.Request.GetDisplayUrl()')" class="nav-link text-orange">Register</a>
         </li>
         <li class="nav-item anchor-shadow ml-3">
-            <a class="nav-link text-orange" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link text-orange" onclick="showPopup('/Users/Login/', '@Context.Request.GetDisplayUrl()')">Login</a>
         </li>
     }
 </ul>

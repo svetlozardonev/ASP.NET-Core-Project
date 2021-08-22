@@ -1,0 +1,49 @@
+﻿@model UserLoginFormModel
+
+@{
+    ViewData["Title"] = "Log in - ";
+    Layout = null;
+}
+
+
+<div class="row">
+    <div class="col-10 mr-auto ml-auto text-center">
+        <h1 style="color:darkorange">Log In</h1>
+        <section>
+            <form id="account" method="post" asp-controller="Users" asp-action="Login" onsubmit="return authPost(this)">
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group d-none">
+                    <input asp-for="@Model.ReturnUrl" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Email" style="color:darkorange"></label>
+                    <input asp-for="@Model.Email" class="form-control" />
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Password" style="color:darkorange"></label>
+                    <input asp-for="@Model.Password" class="form-control" />
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="@Model.RememberMe" style="color:darkorange">
+                            <input asp-for="@Model.RememberMe" />
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="color: black; background-color: darkorange; border: none;">Log in</button>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a onclick="showPopup('/Users/Register/', '@Context.Request.GetDisplayUrl()')" style="color: darkorange">Register as a new user</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+

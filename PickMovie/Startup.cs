@@ -41,6 +41,7 @@ namespace PickMovie
 
             services.AddControllersWithViews();
             services.AddTransient<ITimeWarper, TimeWarper>();
+            services.AddTransient<IHelper, Helper>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
