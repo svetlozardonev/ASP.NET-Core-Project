@@ -3,6 +3,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using PickMovie.Models.Comments;
     using PickMovie.Services;
     using System;
     using System.Linq;
@@ -74,6 +76,24 @@
             this.data.SaveChanges();
 
             return Redirect($"/Movies/Details?movieId={model.Id}");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Edit(string commentId)
+        {
+            var comment = await this.data.Comments.FirstOrDefaultAsync(m => m.Id == commentId);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return View(new CommentViewModel
+            {
+                Id = commentId,
+                Content = comment.Content,
+            });
         }
     }
 }
