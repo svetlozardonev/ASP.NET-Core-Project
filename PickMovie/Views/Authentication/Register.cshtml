@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-10 mr-auto ml-auto text-center">
         <h1 style="color: darkorange">Register</h1>
-        <form asp-controller="Users" asp-action="Register" method="post" onsubmit="return authPost(this)">
+        <form asp-controller="Authentications" asp-action="Register" method="post" onsubmit="return authPost(this)">
             <h4 style="color: darkorange">Create a new account</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -38,7 +38,7 @@
             <button type="submit" class="btn btn-warning mb-3" style="color: black; background-color: darkorange; border: none;">Register</button>
             <div class="form-group">
                 <p>
-                    <a onclick="authGet('@Url.Content("/Users/Login/")', '@Model.ReturnUrl')" style="color: darkorange">Sign In</a>
+                    <a onclick="authGet('@Url.Content("/Authentications/Login/")', '@Model.ReturnUrl')" style="color: darkorange">Sign In</a>
                 </p>
             </div>
         </form>
