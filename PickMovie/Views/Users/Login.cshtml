@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <p>
-                        <a onclick="showPopup('/Users/Register/', '@Context.Request.GetDisplayUrl()')" style="color: darkorange">Register as a new user</a>
+                        <a onclick="authGet('@Url.Content("/Users/Register/")', '@Model.ReturnUrl')" style="color: darkorange">Register as a new user</a>
                     </p>
                 </div>
             </form>

@@ -1,35 +1,53 @@
-﻿function showPopup(path, returnUrl) {
-    try {
+﻿function authGet(path, returnUrl) {
         $.ajax({
             type: 'GET',
             url: path,
             data: { returnUrl: returnUrl },
             success: function (res) {
-                $('#formModal .modal-body').html(res);
-                $('#formModal').modal('show');
+                $('#form-modal .modal-body').html(res);
+                $('#form-modal').modal('show');
             },
             error: function (err) {
                 console.log(err);
             }
         })
-    } catch (e) {
-        console.log(e);
-    }
 }
 
 authPost = form => {
-    $.ajax({
-        type: 'POST',
-        url: form.action,
-        data: new FormData(form),
-        success: function (res) {
-            if (!res.isValid) {
-                $('#formModal .modal-body').html(res.html);
+    try {
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                if (!res.isValid) {
+                    $('#form-modal .modal-body').html(res.html);
+                }
+                else {
+                    window.location.href = res.redirectUrl;
+                    $('#form-modal').modal('hide');
+                }
+            },
+            error: function (err) {
+                console.log(err)
             }
-            else {
-                $('#formModal').modal('hide');
-                window.location.href = res.redirectUrl;
-            }
-        }
-    })
+        })
+        //to prevent default form submit event
+        return false;
+    } catch (ex) {
+        console.log(ex)
+    }
 }
+
+$(function () {
+    console.log('here');
+    $("#loaderbody").addClass('hide');
+
+    $(document).bind('ajaxStart', function () {
+        $("#loaderbody").removeClass('hide');
+    }).bind('ajaxStop', function () {
+        $("#loaderbody").addClass('hide');
+    });
+});

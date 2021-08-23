@@ -5,25 +5,29 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using PickMovie.Models.Users;
     using PickMovie.Services;
+    using TestProject.Data;
     using TestProject.Data.Models;
     using static PickMovie.Services.Helper;
 
     // using TestProject.Models.Users;
-
     public class UsersController : Controller
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly PickMovieDbContext data;
         private readonly IHelper helper;
 
         public UsersController(UserManager<User> userManager, SignInManager<User> signInManager,
-            IHelper helper)
+            IHelper helper,
+            PickMovieDbContext data)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.helper = helper;
+            this.data = data;
         }
 
         [NoDirectAccess]
@@ -42,29 +46,42 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(UserLoginFormModel loginModel)
+        public async Task<IActionResult> Login(UserLoginFormModel model)
         {
-            var returnUrl = loginModel.ReturnUrl == null ? "/" : loginModel.ReturnUrl;
+            const string invalidCredentials = "Oops! Invalid credentials!";
 
+            var currentUser = await this.userManager.GetUserAsync(this.User);
 
-            if (ModelState.IsValid)
+            if (currentUser == null)
             {
-                var result = await signInManager.PasswordSignInAsync(loginModel.Email, loginModel.Password, loginModel.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    return Json(new { isValid = true, redirectUrl = Url.Content(returnUrl) });
-                }
-                
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-
-                    return Json(new { isValid = false, html = helper.RenderRazorViewToString(this, "Login", loginModel) });
-                }
+                return RedirectToAction("Index", "Home");
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            return Json(new { isValid = false, html = helper.RenderRazorViewToString(this, "Login", loginModel) });
+            var appliedError = false;
+
+            var existingUser = await this.data.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+
+            if (existingUser == null)
+            {
+                ModelState.AddModelError(string.Empty, invalidCredentials);
+                appliedError = true;
+            }
+
+            var passwordIsValid = await this.userManager.CheckPasswordAsync(existingUser, model.Password);
+
+            if (!passwordIsValid && !appliedError) ModelState.AddModelError(string.Empty, invalidCredentials);
+
+            if (!ModelState.IsValid)
+            {
+                return Json(new { isValid = false, html = helper.RenderRazorViewToString(this, "Login", model) });
+            }
+
+            var returnUrl = model.ReturnUrl == null ? Url.Content("/") : Url.Content(model.ReturnUrl);
+
+            await this.signInManager.SignInAsync(existingUser, true);
+
+            return Json(new { isValid = true, redirectUrl = Url.Content(returnUrl) });
+
         }
 
         [NoDirectAccess]

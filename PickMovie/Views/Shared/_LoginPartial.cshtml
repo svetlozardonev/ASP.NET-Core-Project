@@ -18,10 +18,10 @@
     else
     {
         <li class="nav-item anchor-shadow">
-            <a onclick="showPopup('/Users/Register/', '@Context.Request.GetDisplayUrl()')" class="nav-link text-orange">Register</a>
+            <a onclick="authGet('@Url.Content("/Users/Register/")', '@Context.Request.GetDisplayUrl()')" class="nav-link text-orange">Register</a>
         </li>
         <li class="nav-item anchor-shadow ml-3">
-            <a class="nav-link text-orange" onclick="showPopup('/Users/Login/', '@Context.Request.GetDisplayUrl()')">Login</a>
+            <a class="nav-link text-orange" onclick="authGet('@Url.Content("/Users/Login/")', '@Context.Request.GetDisplayUrl()')">Login</a>
         </li>
     }
 </ul>
