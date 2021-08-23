@@ -52,7 +52,7 @@
 
             var currentUser = await this.userManager.GetUserAsync(this.User);
 
-            if (currentUser == null)
+            if (currentUser != null)
             {
                 return RedirectToAction("Index", "Home");
             }
