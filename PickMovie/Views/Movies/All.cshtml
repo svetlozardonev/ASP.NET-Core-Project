@@ -58,7 +58,21 @@
             <div class="card mb-3">
                 <img class="card-img-top" style="height: 400px; width:auto" src="@movie.ImageUrl" alt="@movie.Title - @movie.Category">
                 <div class="card-body">
-                    <h5 class="card-title" style="font-size: 30px;"><strong>@movie.Title <i id="heart" class="far fa-heart ml-4"></i></strong></h5>
+                    <div class="row px-3">
+                        <h5 class="card-title text-truncate w-75">
+                            @movie.Title
+                        </h5>
+                        @{
+                            if (movie.IsLiked)
+                            {
+                                <a class="mt-1 ml-auto mr-0" asp-controller="Movies" asp-action="Like" asp-route-movieId="@movie.Id"><i id="heart" class="fas fa-heart ml-4"></i></a>
+                            }
+                            else
+                            {
+                                <a class="mt-1 ml-auto mr-0" asp-controller="Movies" asp-action="Like" asp-route-movieId="@movie.Id"><i id="heart" class="far fa-heart ml-4"></i></a>
+                            }
+                        }
+                    </div>
                     <p style="font-size: 17px;">@movie.Category</p>
                 </div>
                 <ul class="list-group list-group-flush">

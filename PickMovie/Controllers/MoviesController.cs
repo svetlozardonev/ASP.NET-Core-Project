@@ -27,10 +27,12 @@
             this.timeWarper = timeWarper;
         }
 
-        public IActionResult All([FromQuery]AllMoviesQueryModel query)
+        public async Task<IActionResult> All([FromQuery]AllMoviesQueryModel query)
         {
             var moviesQuery = this.data.Movies.AsQueryable();
 
+            var user = await this.userManager.GetUserAsync(this.User);
+            var userId = user == null ? null : user.Id;
            
             if (!string.IsNullOrWhiteSpace(query.SearchTerm))
             {
@@ -52,7 +54,8 @@
                     Director = m.Director,
                     ImageUrl = m.ImageUrl,
                     Year = m.Year,
-                    Category = m.Category.Name
+                    Category = m.Category.Name,
+                    IsLiked = isLiked(m.Id, userId, this.data),
                 }).ToList();
 
             query.Movies = movies;
@@ -89,6 +92,8 @@
                 Director = movie.Director,
                 ImageUrl = movie.ImageUrl,
                 Year = movie.Year,
+                DurationTime = movie.DurationTime,
+                Actors = movie.Actors,
                 Category = movie.Category.Name,
                 Comments = this.data.Comments
                 .Include(c => c.Author)
@@ -130,7 +135,9 @@
                 Director = movie.Director,
                 ImageUrl = movie.ImageUrl,
                 Year = movie.Year,
-                CategoryId = movie.CategoryId
+                CategoryId = movie.CategoryId,
+                Actors = movie.Actors,
+                DurationTime = movie.DurationTime,
             };
 
             this.data.Movies.Add(currentMovie);
@@ -221,6 +228,36 @@
 
             return RedirectToAction(nameof(All));
         }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Like(string movieId)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var usermovie = await this.data.UserMovies.FirstOrDefaultAsync(um => um.MovieId == movieId && um.UserId == user.Id);
+
+            var isLiked = usermovie != null;
+
+            if (isLiked)
+            {
+                this.data.UserMovies.Remove(usermovie);
+            }
+            else
+            {
+                usermovie = new UserMovie
+                {
+                    UserId = user.Id,
+                    MovieId = movieId
+                };
+
+                this.data.UserMovies.Add(usermovie);
+            }
+
+            await this.data.SaveChangesAsync();
+
+            return Redirect("/Movies/All/");
+        }
         private IEnumerable<MovieCategoryViewModel> GetMovieCategories()
             => this.data
                 .Categories
@@ -230,5 +267,14 @@
                     Name = m.Name
                 })
                 .ToList();
+
+        private static bool isLiked(string movieId, string userId, PickMovieDbContext data)
+        {
+            if (userId == null) return false;
+            
+            var result = data.UserMovies.FirstOrDefault(um => um.MovieId == movieId && um.UserId == userId) != null;
+
+            return result;
+        }
     }
 }

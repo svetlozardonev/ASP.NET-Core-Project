@@ -23,6 +23,8 @@
         [MaxLength(300)]
         public string AboutMe { get; set; }
 
+        public bool IsCritic { get; set; } = false;
+
         public ICollection<Movie> Movies { get; set; } = new List<Movie>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<UserMovie> UserMovies { get; set; } = new List<UserMovie>();

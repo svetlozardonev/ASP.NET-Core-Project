@@ -23,6 +23,7 @@
                 CategoriesCount = db.Categories.Count(),
                 UsersCount = db.Users.Count(),
                 CommentsCount = db.Comments.Count(),
+                CriticsCount = db.Critics.Count(),
                 
             };
 

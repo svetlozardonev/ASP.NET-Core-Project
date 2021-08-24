@@ -12,6 +12,7 @@
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly PickMovieDbContext data;
 
         public UsersController(UserManager<User> userManager, SignInManager<User> signInManager,
             IHelper helper,
@@ -19,6 +20,7 @@
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.data = data;
         }
 
         
@@ -47,6 +49,31 @@
             };
 
             return View(result);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> BecomeCritic(string returnUrl = null)
+        {
+             returnUrl = returnUrl == null ? "/" : returnUrl;
+
+            var user = await this.userManager.GetUserAsync(User);
+
+            if (user.IsCritic)
+            {
+                return Redirect(returnUrl);
+            }
+
+            user.IsCritic = true;
+
+            var critic = new Critic
+            {
+                UserId = user.Id,
+            };
+
+            this.data.Critics.Add(critic);
+            this.data.SaveChanges();
+
+            return Redirect(returnUrl);
         }
 
 

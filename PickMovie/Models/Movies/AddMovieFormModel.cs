@@ -30,7 +30,7 @@
         [Url]
         public string ImageUrl { get; set; }
 
-        [Display(Name = "Duration Time(in minutes)")]
+        [Display(Name = "Duration Time (in minutes)")]
         [Required(ErrorMessage = "This field is required!")]
         [StringLength(MaxDurationTime, MinimumLength = MinDurationTime, ErrorMessage = "Duration time must be between {2} - {1} minutes!")]
         public string DurationTime { get; set; }
