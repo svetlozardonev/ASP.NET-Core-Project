@@ -276,5 +276,47 @@
 
             return result;
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Favourites([FromQuery] AllMoviesQueryModel query)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var moviesQuery = this.data.Movies
+                .Include(m => m.UserMovies)
+                .Where(m => m.UserMovies.Any(um => um.UserId == user.Id))
+                .AsQueryable();
+
+            var userId = user == null ? null : user.Id;
+
+            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
+            {
+                moviesQuery = moviesQuery.Where(m =>
+                m.Title.ToLower().Contains(query.SearchTerm.ToLower()) ||
+                m.Director.ToLower().Contains(query.SearchTerm.ToLower()));
+            }
+
+            var totalMovies = moviesQuery.Count();
+
+            var movies = moviesQuery
+                .Skip((query.CurrentPage - 1) * AllMoviesQueryModel.MoviesPerPage)
+                .Take(AllMoviesQueryModel.MoviesPerPage)
+                .OrderBy(m => m.Title)
+                .Select(m => new MovieListingViewModel
+                {
+                    Id = m.Id,
+                    Title = m.Title,
+                    Director = m.Director,
+                    ImageUrl = m.ImageUrl,
+                    Year = m.Year,
+                    Category = m.Category.Name,
+                    IsLiked = isLiked(m.Id, userId, this.data),
+                }).ToList();
+
+            query.Movies = movies;
+            query.TotalMovies = totalMovies;
+
+            return View(query);
+        }
     }
 }
