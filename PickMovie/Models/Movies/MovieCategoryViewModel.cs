@@ -1,4 +1,4 @@
-﻿namespace TestProject.Models.Movies
+﻿namespace PickMovie.Models.Movies
 {
     public class MovieCategoryViewModel
     {

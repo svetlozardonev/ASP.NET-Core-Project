@@ -1,4 +1,4 @@
-﻿namespace TestProject.Models.Movies
+﻿namespace PickMovie.Models.Movies
 {
     using PickMovie.Models.Comments;
     using System.Collections.Generic;

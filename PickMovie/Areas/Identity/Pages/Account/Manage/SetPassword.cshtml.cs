@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TestProject.Data.Models;
+using PickMovie.Data.Models;
 
 namespace PickMovie.Areas.Identity.Pages.Account.Manage
 {

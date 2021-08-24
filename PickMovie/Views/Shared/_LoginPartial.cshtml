@@ -9,19 +9,22 @@
     @if (this.signInManager.IsSignedIn(User))
     {
         <li class="nav-item anchor-shadow">
+            <a class="nav-link text-orange" asp-controller="Critics" asp-action="Create" asp-route-userId="@user.Id">Become Critic</a>
+        </li>
+        <li class="nav-item anchor-shadow">
             <a class="nav-link text-orange" asp-controller="Users" asp-action="Profile" asp-route-userId="@user.Id" title="Manage">Hello, @User.Identity.Name!</a>
         </li>
         <li class="nav-item anchor-shadow">
-            <a asp-controller="Authentications" asp-action="Logout" asp-route-returnUrl="@Context.Request.GetDisplayUrl()" class="nav-link text-orange">Logout</a>
+            <a asp-controller="Authentication" asp-action="Logout" asp-route-returnUrl="@Context.Request.GetDisplayUrl()" class="nav-link text-orange">Logout</a>
         </li>
     }
     else
     {
         <li class="nav-item anchor-shadow">
-            <a onclick="authGet('@Url.Content("/Users/Register/")', '@Context.Request.GetDisplayUrl()')" class="nav-link text-orange">Register</a>
+            <a onclick="authGet('@Url.Content("/Authentication/Register/")', '@Context.Request.GetDisplayUrl()')" class="nav-link text-orange">Register</a>
         </li>
         <li class="nav-item anchor-shadow ml-3">
-            <a class="nav-link text-orange" onclick="authGet('@Url.Content("/Users/Login/")', '@Context.Request.GetDisplayUrl()')">Login</a>
+            <a class="nav-link text-orange" onclick="authGet('@Url.Content("/Authentication/Login/")', '@Context.Request.GetDisplayUrl()')">Login</a>
         </li>
     }
 </ul>

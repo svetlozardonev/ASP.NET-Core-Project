@@ -2,15 +2,14 @@ namespace PickMovie
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using PickMovie.Data;
+    using PickMovie.Data.Models;
+    using PickMovie.Infrastructure;
     using PickMovie.Services;
-    using TestProject.Data;
-    using TestProject.Data.Models;
-    using TestProject.Infrastructure;
 
     public class Startup
     {

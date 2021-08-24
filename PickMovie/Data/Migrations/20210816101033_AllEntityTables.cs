@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TestProject.Data.Migrations
+namespace PickMovie.Data.Migrations
 {
     public partial class AllEntityTables : Migration
     {

@@ -1,4 +1,4 @@
-﻿namespace TestProject.Data.Models
+﻿namespace PickMovie.Data.Models
 {
     public class UserMovie
     {

@@ -1,11 +1,12 @@
-﻿namespace TestProject.Controllers
+﻿namespace PickMovie.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using PickMovie.Data;
+    using PickMovie.Models;
     using PickMovie.Views.Home;
     using System.Diagnostics;
     using System.Linq;
     using TestProject.Data;
-    using TestProject.Models;
     public class HomeController : Controller
     {
         private readonly PickMovieDbContext db;

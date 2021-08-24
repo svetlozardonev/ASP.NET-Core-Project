@@ -1,8 +1,8 @@
-﻿namespace TestProject.Data
+﻿namespace PickMovie.Data
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using TestProject.Data.Models;
+    using PickMovie.Data.Models;
 
     public class PickMovieDbContext : IdentityDbContext<User>
     {
@@ -15,6 +15,8 @@
         public DbSet<Comment> Comments { get; init; }
         public DbSet<UserComment> UserComments { get; init; }
         public DbSet<UserMovie> UserMovies { get; init; }
+        public DbSet<Critic> Critics { get; init; }
+        public DbSet<Review> Reviews { get; init; }
         
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -25,6 +27,7 @@
                 .WithMany(m => m.Movies)
                 .HasForeignKey(m => m.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
+
 
             builder
                 .Entity<Movie>()
@@ -81,6 +84,27 @@
                 .HasOne(uc => uc.Comment)
                 .WithMany(uc => uc.UserComments)
                 .HasForeignKey(uc => uc.CommentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Critic>()
+                .HasOne<User>()
+                .WithOne()
+                .HasForeignKey<Critic>(c => c.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Review>()
+                .HasOne<Critic>()
+                .WithMany(r => r.Reviews)
+                .HasForeignKey(r => r.CriticId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Review>()
+                .HasOne<Movie>()
+                .WithMany(r => r.Reviews)
+                .HasForeignKey(r => r.MovieId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);

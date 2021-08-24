@@ -1,11 +1,11 @@
-﻿namespace TestProject.Infrastructure
+﻿namespace PickMovie.Infrastructure
 {
     using Microsoft.AspNetCore.Builder;
-    using TestProject.Data;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
-    using TestProject.Data.Models;
+    using PickMovie.Data;
+    using PickMovie.Data.Models;
 
     public static class ApplicationBuilderExtensions
     {

@@ -4,14 +4,14 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using PickMovie.Data;
+    using PickMovie.Data.Models;
     using PickMovie.Models.Comments;
+    using PickMovie.Models.Movies;
     using PickMovie.Services;
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using TestProject.Data;
-    using TestProject.Data.Models;
-    using TestProject.Models.Movies;
 
     public class CommentsController : Controller
     {

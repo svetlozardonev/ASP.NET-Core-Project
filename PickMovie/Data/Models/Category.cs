@@ -1,4 +1,4 @@
-﻿namespace TestProject.Data.Models
+﻿namespace PickMovie.Data.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

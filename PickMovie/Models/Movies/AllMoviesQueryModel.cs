@@ -1,4 +1,4 @@
-﻿namespace TestProject.Models.Movies
+﻿namespace PickMovie.Models.Movies
 {
     using System.Collections.Generic;
     public class AllMoviesQueryModel

@@ -1,9 +1,9 @@
-﻿namespace TestProject.Data.Models
+﻿namespace PickMovie.Data.Models
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using static TestProject.Data.DataConstants;
+    using static DataConstants;
     public class Comment
     {
         [Key]

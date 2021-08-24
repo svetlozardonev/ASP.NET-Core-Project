@@ -1,6 +1,6 @@
 using System;
 
-namespace TestProject.Models
+namespace PickMovie.Models
 {
     public class ErrorViewModel
     {

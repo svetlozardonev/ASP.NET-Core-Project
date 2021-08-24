@@ -4,10 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TestProject.Data;
 
-namespace TestProject.Data.Migrations
+namespace PickMovie.Data.Migrations
 {
     [DbContext(typeof(PickMovieDbContext))]
     [Migration("20210816101033_AllEntityTables")]

@@ -4,12 +4,10 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using PickMovie.Data;
+    using PickMovie.Data.Models;
     using PickMovie.Models.Users;
     using PickMovie.Services;
-    using TestProject.Data;
-    using TestProject.Data.Models;
-
-    // using TestProject.Models.Users;
     public class UsersController : Controller
     {
         private readonly UserManager<User> userManager;

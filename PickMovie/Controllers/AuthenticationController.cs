@@ -4,22 +4,22 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using PickMovie.Data;
+    using PickMovie.Data.Models;
     using PickMovie.Models.Users;
     using PickMovie.Services;
     using System.Linq;
     using System.Threading.Tasks;
-    using TestProject.Data;
-    using TestProject.Data.Models;
     using static PickMovie.Services.Helper;
 
-    public class AuthenticationsController : Controller
+    public class AuthenticationController : Controller
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly PickMovieDbContext data;
         private readonly IHelper helper;
 
-        public AuthenticationsController(UserManager<User> userManager, SignInManager<User> signInManager,
+        public AuthenticationController(UserManager<User> userManager, SignInManager<User> signInManager,
             IHelper helper,
             PickMovieDbContext data)
         {
