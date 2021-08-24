@@ -1,0 +1,20 @@
+﻿@model PickMovie.Models.Reviews.AddReviewFormModel
+
+@{
+    ViewData["Title"] = "Add Review - ";
+}
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-1 col-lg-8 col-xl-6">
+        <h2 class="heading-margin" style="color: darkorange"><strong>Add Review</strong></h2>
+        <form method="post">
+            <div class="form-group" style="color: darkorange">
+                <textarea asp-for="Content" class="form-control" rows="5"></textarea>
+            </div>
+            
+            <input class="btn btn-warning" type="submit" value="Add" style="color: black; background-color: darkorange; border: none;" />
+
+        </form>
+    </div>
+
+</div>

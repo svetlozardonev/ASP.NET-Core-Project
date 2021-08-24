@@ -83,6 +83,10 @@
                     <a style="color: black" asp-controller="Movies" asp-action="Details" asp-route-movieId="@movie.Id" class="btn btn-outline-warning mb-4">View More</a>
                     <a style="color: black" asp-controller="Movies" asp-action="Edit" asp-route-movieId="@movie.Id" class="btn btn-outline-warning ml-4 mb-4">Edit</a>
                     <a style="color: black" asp-controller="Movies" asp-action="Delete" asp-route-movieId="@movie.Id" class="btn btn-outline-warning">Delete</a>
+                    @if (!movie.IsCritic)
+                    {
+                        <a style="color: black" asp-controller="Reviews" asp-action="Create" class="btn btn-outline-warning">Add Review</a>
+                    }
                 </div>
             </div>
         </div>

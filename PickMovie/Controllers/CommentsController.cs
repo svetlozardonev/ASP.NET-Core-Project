@@ -95,5 +95,25 @@
                 Content = comment.Content,
             });
         }
+
+        [HttpPost]
+        [Authorize]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(string commentId)
+        {
+            var comment = await this.data.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            this.data.Comments.Remove(comment);
+            this.data.SaveChanges();
+
+            return RedirectToAction("Movies", "Details");
+        }
     }
 }
+
+

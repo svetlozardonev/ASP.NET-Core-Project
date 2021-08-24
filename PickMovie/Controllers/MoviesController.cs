@@ -256,7 +256,7 @@
 
             await this.data.SaveChangesAsync();
 
-            return Redirect("/Movies/All/");
+            return Redirect("/Movies/Favourites");
         }
         private IEnumerable<MovieCategoryViewModel> GetMovieCategories()
             => this.data
@@ -299,9 +299,9 @@
             var totalMovies = moviesQuery.Count();
 
             var movies = moviesQuery
+                .OrderBy(m => m.Title)
                 .Skip((query.CurrentPage - 1) * AllMoviesQueryModel.MoviesPerPage)
                 .Take(AllMoviesQueryModel.MoviesPerPage)
-                .OrderBy(m => m.Title)
                 .Select(m => new MovieListingViewModel
                 {
                     Id = m.Id,

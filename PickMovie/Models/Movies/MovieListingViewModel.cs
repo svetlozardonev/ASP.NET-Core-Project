@@ -15,6 +15,7 @@
         public string Category { get; init; }
         public string CommentContent { get; init; }
         public bool IsLiked { get; init; }
+        public bool IsCritic { get; init; }
         public List<CommentViewModel> Comments { get; init; }
     }
 }
